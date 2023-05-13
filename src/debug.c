@@ -33,6 +33,8 @@ int disassemble_inst(chunk_t* chunk, int offset) {
       return simple_inst("OP_RET", offset);
     case OP_CONST:
       return const_inst("OP_CONST", chunk, offset);
+    case OP_NEG:
+      return simple_inst("OP_NEG", offset);
     default:
       printf("unknown opcode %d\n", instruction);
       return offset + 1;
