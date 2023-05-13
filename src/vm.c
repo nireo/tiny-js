@@ -16,7 +16,6 @@ void init_vm(void) {
 }
 
 void free_vm(void) {
-
 }
 
 void push(val_t val) {
@@ -32,6 +31,12 @@ val_t pop(void) {
 static run_res_t run(void) {
   #define READ_BYTE() (*vm.ip++)
   #define READ_CONST() (vm.chunk->constants.values[READ_BYTE()])
+  #define BINARY_OP(op) \
+    do { \
+      double b = pop(); \
+      double a = pop(); \
+      push(a op b); \
+    } while (false)
 
   for (;;) {
     #ifdef DEBUG_TRACE_EXECUTION
@@ -62,9 +67,14 @@ static run_res_t run(void) {
         push(-pop());
         break;
       }
+      case OP_ADD:      BINARY_OP(+); break;
+      case OP_SUBTRACT: BINARY_OP(-); break;
+      case OP_MULTIPLY: BINARY_OP(*); break;
+      case OP_DIVIDE:   BINARY_OP(/); break;
     }
   }
 
+  #undef BINARY_OP
   #undef READ_BYTE
   #undef READ_CONST
 }

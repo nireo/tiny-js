@@ -9,6 +9,10 @@ typedef enum {
   OP_CONST,
   OP_RET,
   OP_NEG,
+  OP_ADD,
+  OP_SUBTRACT,
+  OP_MULTIPLY,
+  OP_DIVIDE,
 } opcode_t;
 
 /* A chunk represents a collection of opcodes. Chunks are also dynamic arrays */

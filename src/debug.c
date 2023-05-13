@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "debug.h"
+#include "opcode.h"
 
 void disassemble_chunk(chunk_t *chunk, const char *name) {
   printf("== %s ==\n", name);
@@ -35,6 +36,14 @@ int disassemble_inst(chunk_t* chunk, int offset) {
       return const_inst("OP_CONST", chunk, offset);
     case OP_NEG:
       return simple_inst("OP_NEG", offset);
+    case OP_ADD:
+      return simple_inst("OP_ADD", offset);
+    case OP_SUBTRACT:
+      return simple_inst("OP_SUBTRACT", offset);
+    case OP_MULTIPLY:
+      return simple_inst("OP_MULTIPLY", offset);
+    case OP_DIVIDE:
+      return simple_inst("OP_DIVIDE", offset);
     default:
       printf("unknown opcode %d\n", instruction);
       return offset + 1;
