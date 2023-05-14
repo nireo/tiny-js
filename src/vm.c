@@ -4,6 +4,7 @@
 #include "lib.h"
 #include <stdio.h>
 #include "debug.h"
+#include "codegen.h"
 
 vm_t vm;
 
@@ -79,8 +80,7 @@ static run_res_t run(void) {
   #undef READ_CONST
 }
 
-run_res_t interpret(chunk_t *chunk) {
-  vm.chunk = chunk;
-  vm.ip = vm.chunk->code;
+run_res_t interpret(const char *source) {
+  codegen(source);
   return run();
 }
